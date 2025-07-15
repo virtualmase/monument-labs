@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monument Labs | Signal Architecture for the AI Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Chosen Palette: Dark Blues/Grays (Coreweaver inspired) with Amber accent. This palette creates a calm, professional, and trustworthy feel, suitable for a tech-focused R&D studio.
+    Application Structure Plan: A single-page, vertically scrolling narrative structure. This guides the user logically from the high-level mission (Hero), through the philosophy (About), to the concrete offerings (Services & Why Us), and finally to a clear call-to-action (CTA). This is more user-friendly than a complex dashboard for this type of informational content. Key interactions include active-state navigation, hover-reveal effects on service cards, and smooth scrolling to create a polished, engaging experience.
+    Visualization & Content Choices: The content is qualitative. Therefore, visualization focuses on structured information architecture rather than charts. Goals are achieved as follows:
+    - Inform (About/Services): Interactive cards using HTML/Tailwind and JS for hover/click effects to reveal details. This encourages exploration.
+    - Organize (Services Grid): A responsive grid layout organizes services clearly.
+    - Compare (Why Us): A side-by-side comparison using a list format with icons (Unicode characters) to differentiate points.
+    - Justification: These choices create a clean, modern, and interactive experience that makes textual content more digestible and engaging without needing complex visualizations. No charting libraries are needed.
+    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fallback, will be overridden by gradient */
+        }
+        .nav-link.active {
+            color: #FBBF24; /* Amber accent */
+            font-weight: 600;
+        }
+        .service-card .description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .service-card:hover .description {
+            max-height: 200px;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #93c5fd); /* Lighter blue gradient for text on dark background */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Coreweaver Glass Card Style */
+        .glass-card {
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid #21262d;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background-color: rgba(22, 27, 34, 0.8);
+            border-color: #3B82F6; /* Blue accent on hover */
+        }
+        /* Particle canvas styling */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="text-gray-300 antialiased bg-gradient-to-br from-gray-950 via-gray-900 to-blue-950">
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="relative z-10 sticky top-0 bg-gray-900/80 backdrop-blur-md shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-white">
+                Monument Labs
+            </a>
+            <div id="nav-menu" class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#services" class="nav-link text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="#why-us" class="nav-link text-gray-300 hover:text-white transition-colors">Why Us</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-amber-500 text-gray-900 font-semibold px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors shadow-md">
+                Schedule a Call
+            </a>
+        </nav>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="home" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+                    Built in <span class="gradient-text">Colorado</span>.
+                    <br>
+                    Indexed by the <span class="gradient-text">Future</span>.
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                    Monument Labs is a signal-focused R&D studio for AI-first branding, content, and digital infrastructure. We help brands become structured, trusted, and visible in the age of generative search.
+                </p>
+                <div class="mt-10">
+                    <a href="#contact" class="bg-amber-500 text-gray-900 font-bold text-lg px-8 py-4 rounded-lg hover:bg-amber-600 transition-transform transform hover:scale-105 shadow-lg">
+                        Start Your Visibility Audit →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">We Are Not an Agency. We Are a Lab.</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                        Born in Monument, Colorado, we combine research, strategy, and structure to build signal-rich systems that stand tall in a shifting landscape.
+                    </p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-3 gap-12 text-center">
+                    <div class="glass-card p-6">
+                        <div class="text-5xl font-bold text-amber-400">🗣️</div>
+                        <h3 class="mt-4 text-xl font-semibold text-white">Speak Fluently to AI</h3>
+                        <p class="mt-2 text-gray-400">
+                            We help you communicate effectively with systems like ChatGPT, Perplexity, and SGE.
+                        </p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <div class="text-5xl font-bold text-amber-400">🤝</div>
+                        <h3 class="mt-4 text-xl font-semibold text-white">Earn Structured Trust</h3>
+                        <p class="mt-2 text-gray-400">
+                            Achieve trust and authority through semantic clarity and well-organized data.
+                        </p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <div class="text-5xl font-bold text-amber-400">🌳</div>
+                        <h3 class="mt-4 text-xl font-semibold text-white">Build Durable Ecosystems</h3>
+                        <p class="mt-2 text-gray-400">
+                            Create robust content systems that outlast fleeting trends and algorithm changes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">We Build for AI, Search, and Scale</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                        Our services are designed to make your brand legible to both humans and machines, ensuring future-proof visibility and growth. Hover over a card to learn more.
+                    </p>
+                </div>
+                <div id="services-grid" class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section id="why-us" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">We Don't Chase Algorithms. We Structure Meaning.</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                        Your brand is already valuable. Our job is to make it clearly understood by the AI-powered web.
+                    </p>
+                </div>
+                <div class="mt-16 max-w-4xl mx-auto glass-card p-10 shadow-lg">
+                    <ul id="why-us-list" class="space-y-6">
+                        <!-- 'Why Us' points will be injected here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contact" class="py-24 bg-blue-900 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Ready to Build Your Structured Signal?</h2>
+                <p class="mt-4 text-lg text-blue-200 max-w-2xl mx-auto">
+                    Start with a Generative Search Optimization (GSO) Audit or book a custom workshop at our studio in Monument, CO.
+                </p>
+                <div class="mt-10">
+                    <a href="mailto:contact@monumentlabs.xyz" class="bg-amber-500 text-gray-900 font-bold text-lg px-8 py-4 rounded-lg hover:bg-amber-600 transition-transform transform hover:scale-105 shadow-lg">
+                        Work with Monument Labs → Schedule a Call
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-semibold text-lg text-white">Monument Labs | Signal Architecture for the AI Web</p>
+            <p class="mt-2 text-sm">&copy; 2025 | Built in Colorado. Indexed by the Future.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Data for dynamic content injection ---
+            const servicesData = [
+                {
+                    icon: '🔍',
+                    title: 'Generative Search Optimization (GSO)',
+                    description: 'We structure your content and metadata for LLM visibility. Think beyond keywords into entity modeling, schema, and AI citability.'
+                },
+                {
+                    icon: '✍️',
+                    title: 'Semantic Strategy & Content Systems',
+                    description: 'From topical authority to knowledge graph mapping, we turn your brand\'s expertise into indexed clarity.'
+                },
+                {
+                    icon: '🎨',
+                    title: 'Experience Design for Search',
+                    description: 'UX, navigation, and mobile performance designed to align with AI-first indexing models and human behavior.'
+                },
+                {
+                    icon: '📊',
+                    title: 'Insight Layer (GA4, Heatmaps, CRO)',
+                    description: 'Measure what matters—scroll depth, click flows, form behavior—and optimize your page experience based on true user intelligence.'
+                },
+                {
+                    icon: '🖼️',
+                    title: 'Visual Systems for Machine Readability',
+                    description: 'Images, alt tags, and visual metadata crafted for AI parsing. We combine boutique design with machine fluency.'
+                }
+            ];
+
+            const whyUsData = [
+                {
+                    icon: '✅',
+                    text: '<strong>We\'re schema-native, not SEO-hacked.</strong> We build from the ground up for deep understanding.'
+                },
+                {
+                    icon: '🎯',
+                    text: '<strong>We build from core signals, not surface tricks.</strong> Our approach is durable and foundational.'
+                },
+                {
+                    icon: '💡',
+                    text: '<strong>We believe visibility is earned by design.</strong> We engineer clarity into your digital presence.'
+                },
+                {
+                    icon: '⏳',
+                    text: '<strong>We future-proof your search presence.</strong> Prepare for the next wave of search and discovery.'
+                }
+            ];
+
+            // --- Dynamic Content Injection ---
+            const servicesGrid = document.getElementById('services-grid');
+            servicesData.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'service-card glass-card p-8 cursor-pointer transform hover:-translate-y-2 transition-transform';
+                card.innerHTML = `
+                    <div class="text-4xl mb-4 text-amber-400">${service.icon}</div>
+                    <h3 class="text-xl font-semibold text-white">${service.title}</h3>
+                    <div class="description mt-2 text-gray-400">
+                        <p>${service.description}</p>
+                    </div>
+                `;
+                servicesGrid.appendChild(card);
+            });
+
+            const whyUsList = document.getElementById('why-us-list');
+            whyUsData.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'flex items-start';
+                // Corrected: Removed the extraneous comment from inside the template literal
+                listItem.innerHTML = `
+                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-700 text-white flex items-center justify-center mr-4 mt-1">
+                        <span>${item.icon}</span>
+                    </div>
+                    <p class="text-gray-300 text-lg">${item.text}</p>
+                `;
+                whyUsList.appendChild(listItem);
+            });
+
+            // --- Navigation Active State Logic ---
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const headerHeight = document.getElementById('header').offsetHeight;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: `-${headerHeight}px 0px 0px 0px`, threshold: 0.4 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Smooth scrolling for all anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - headerHeight + 1; // +1 to ensure correct section highlighting
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Particle Animation Logic (Copied from Coreweaver) ---
+            const canvas = document.getElementById('particles-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let animationFrameId;
+
+                const resizeCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    initParticles();
+                };
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 1.5 + 0.5;
+                        this.speedX = Math.random() * 1 - 0.5;
+                        this.speedY = Math.random() * 1 - 0.5;
+                        this.color = 'rgba(230, 237, 243, 0.7)';
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                    }
+                    draw() {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                const initParticles = () => {
+                    particles = [];
+                    const numberOfParticles = (canvas.width * canvas.height) / 9000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        particles.push(new Particle());
+                    }
+                };
+
+                const handleParticles = () => {
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                        for (let j = i; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 100) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(230, 237, 243, ${1 - distance / 100})`;
+                                ctx.lineWidth = 0.2;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                };
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    handleParticles();
+                    animationFrameId = requestAnimationFrame(animate);
+                };
+
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                animate();
+
+                // Cleanup function for particles
+                window.addEventListener('beforeunload', () => {
+                    window.removeEventListener('resize', resizeCanvas);
+                    cancelAnimationFrame(animationFrameId);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
