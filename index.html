@@ -55,7 +55,7 @@
         }
         /* Particle canvas styling */
         #particles-canvas {
-            position: absolute;
+            position: fixed; /* Changed to fixed to cover the entire viewport regardless of scroll */
             top: 0;
             left: 0;
             width: 100%;
@@ -71,7 +71,7 @@
     <canvas id="particles-canvas"></canvas>
 
     <!-- Header & Navigation -->
-    <header id="header" class="relative z-10 sticky top-0 bg-gray-900/80 backdrop-blur-md shadow-lg">
+    <header id="header" class="relative z-20 sticky top-0 bg-gray-900/80 backdrop-blur-md shadow-lg"> <!-- Increased z-index to ensure it's above other content -->
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold text-white">
                 Monument Labs
@@ -192,10 +192,63 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-8">
-        <div class="container mx-auto px-6 text-center">
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-left">
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors">Team</a></li>
+                    <li><a href="#careers" class="hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="#services" class="hover:text-white transition-colors">Generative Search Optimization</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Semantic Strategy</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Experience Design for Search</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Visual Systems for AI</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">AI Citability & Schema</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="#docs" class="hover:text-white transition-colors">Documentation</a></li>
+                    <li><a href="#blog" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#whitepapers" class="hover:text-white transition-colors">Whitepapers</a></li>
+                    <li><a href="#case-studies" class="hover:text-white transition-colors">Case Studies</a></li>
+                    <li><a href="#insights" class="hover:text-white transition-colors">AI & Search Insights</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-white mb-4">Legal</h3>
+                <ul class="space-y-2">
+                    <li><a href="#privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#terms-of-service" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#responsible-ai" class="hover:text-white transition-colors">Responsible AI Use</a></li>
+                    <li><a href="#security" class="hover:text-white transition-colors">Security Practices</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center mt-12 border-t border-gray-700 pt-8">
             <p class="font-semibold text-lg text-white">Monument Labs | Signal Architecture for the AI Web</p>
             <p class="mt-2 text-sm">&copy; 2025 | Built in Colorado. Indexed by the Future.</p>
+            <p class="mt-4 text-base text-gray-500">Designed for trust. Built for control. Powered by AI.</p>
+            <!-- Optional Social Links -->
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="https://github.com/MonumentLabs" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors text-xl" title="GitHub">
+                    &#x1F4BB; <!-- Unicode for laptop/computer -->
+                </a>
+                <a href="https://linkedin.com/company/monument-labs" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors text-xl" title="LinkedIn">
+                    &#x1F517; <!-- Unicode for link symbol -->
+                </a>
+                <a href="https://twitter.com/MonumentLabs" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors text-xl" title="X (Twitter)">
+                    &#x2709;&#xFE0F; <!-- Unicode for envelope -->
+                </a>
+            </div>
         </div>
     </footer>
 
@@ -268,7 +321,6 @@
             whyUsData.forEach(item => {
                 const listItem = document.createElement('li');
                 listItem.className = 'flex items-start';
-                // Corrected: Removed the extraneous comment from inside the template literal
                 listItem.innerHTML = `
                     <div class="flex-shrink-0 h-6 w-6 rounded-full bg-blue-700 text-white flex items-center justify-center mr-4 mt-1">
                         <span>${item.icon}</span>
